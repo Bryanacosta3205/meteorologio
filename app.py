@@ -30,7 +30,8 @@ app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
 mail = Mail(app)
 
 
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql+psycopg2://sa:12345678@localhost:5432/meteorologio'
+#app.config['SQLALCHEMY_DATABASE_URI']='postgresql+psycopg2://sa:12345678@localhost:5432/meteorologio'
+app.config['SQLALCHEMY_DATABASE_URI']='postgres://qxacugfabwkwrx:b8eda11a40abab9e8f7fb76f2a560069dc8ba6864562bc961657dc5cef482fee@ec2-54-225-18-166.compute-1.amazonaws.com:5432/dbjcdbuo0fnkth'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
