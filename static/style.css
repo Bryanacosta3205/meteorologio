@@ -235,24 +235,43 @@ hr {
     display: block;
     color: #707070;
     overflow-y: scroll;
+    border-radius: 5px;
     
 }
 
 .historial{
-    padding: 5px;
+    border-collapse: collapse;
+    border-radius: 5px;
+
+
     cursor: pointer;
+    min-width: 520px;
+    font-family: 'Montserrat', sans-serif, monospace;
+    
+    font-size: 0.9em;
 }
 
 .historial th{
-    background: #E8E8E8;
-    color: black;
+    /* background: #E8E8E8; */
+   /*  color: black; */
     font-weight: bold;
-    font-family: 'Montserrat';
-   
+    padding: 15px;
+    background-color: #2975CD;
+    color: #ffffff;  
+}
+
+.historial td{
+    padding: 15px;
+}
+
+tbody tr{
+    text-align: center;
+    font-weight: bold;
 }
 
 tbody tr:nth-child(odd) {
     background: #F7F7F7;
+    color: #2975CD;
   }
 
 tbody tr:hover{
