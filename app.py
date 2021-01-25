@@ -153,7 +153,7 @@ def signup():
         pwd = request.form["psw"] 
         vpwd = request.form["psw-repeat"] 
         if pwd != vpwd:
-            flash ("Las contraseñas no coinciden!") 
+            flash ("Las contraseñas no coinciden!","error") 
             return render_template("signup.html")
         else:
             name = request.form["user"]
@@ -169,13 +169,13 @@ def signup():
                 msg.html = render_template('email.html',user=name,passwd=request.form["psw"])
                 mail.send(msg)
                 
-                flash("Hemos enviado un correo de verificación a {}".format(correo))
+                flash("Hemos enviado un correo de verificación a {}".format(correo),"success")
 
             except IntegrityError as error:
                 db.session.rollback()
-                flash(str((error.orig.diag.message_detail)))
+                flash(str((error.orig.diag.message_detail)),"error")
             except DataError as derror:
-                flash(str((derror.orig.diag.message_primary)))
+                flash(str((derror.orig.diag.message_primary)),"error")
 
         return render_template("signup.html")
             
@@ -195,9 +195,9 @@ def login():
                 if current_user.is_authenticated:
                     return redirect("/")
             else:
-                flash("usuario o contraseña inválidos ")
+                flash("usuario o contraseña inválidos ","error")
         else:
-            flash("Usuario o contraseña inválidos")
+            flash("Usuario o contraseña inválidos","error")
 
     return render_template("login.html")
 

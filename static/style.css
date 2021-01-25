@@ -1,4 +1,21 @@
 
+.alert{
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    font-weight: 800;
+}
+
+.alert.error{
+    background: #ef4f4f;
+}
+
+.alert.success{
+    background: rgb(11, 156, 11);
+}
+
+
 .weather-card{
     display: flex;
     flex-direction: column;
