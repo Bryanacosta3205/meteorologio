@@ -1,0 +1,243 @@
+
+.weather-card{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.ciudad{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33.33%;
+    color: #1378C5;
+    font-size: 25px;
+    font-family: 'Roboto Slab';
+    font-weight: bold;
+   
+
+}
+
+.ciudad span{
+    margin: 5px;
+}
+
+.clima{
+    color: #707070;
+    font-family: 'montserrat';
+    font-weight: bold;
+    
+    height: 33.33%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.degrees-wrapper{
+    display: flex;
+    flex-direction: column;
+   
+    width: 40%;
+   
+}
+
+.clima .img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    width: 60%;
+    height: 100%;
+
+}
+
+.fa-sun-o{
+    color: gold;
+    font-size: 80px;
+}
+
+.clima .grados{
+    color: #707070;
+    font-size: 50px;
+    font-family: 'Anton';
+   
+}
+
+.adicional{
+    display: flex;
+    height: 33.33%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #707070;
+    font-family: 'montserrat';
+    font-size: 15px;
+}
+
+.sensacion span:first-child{
+  
+    font-weight: bolder;
+}
+.humedad span:first-child{
+    
+    font-weight: bolder;
+}
+
+.search-wrap{
+    display: flex;
+    justify-content: center;
+}
+
+.search_btn_container{
+    
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    width: 50%;
+}
+
+.search_btn_container input{
+    box-shadow: 0 20px 30px 0 rgba(1, 1, 1, 0.096);
+    border-radius: 5px;
+    border: none;
+    height: 40px;
+    width: 80%;
+    outline:none;
+    padding-left: 20px;
+    margin-bottom: 5vh;
+    font-size: 18px;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+input::placeholder{
+
+    font-size: 18px;
+}
+button{
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    margin-left: -30px;
+    outline:none;
+
+    background-color: Transparent;
+    background-repeat:no-repeat;
+ 
+    cursor:pointer;
+    overflow: hidden;  
+    
+}
+
+.fa-cloud{
+    font-size: 80px;
+    color: #E8E8E8;
+}
+
+.fa-tint{
+    font-size: 80px;
+    color: #189bf1;
+}
+
+hr {
+    border: 1px solid gray;
+    margin-bottom: 25px;
+  }
+
+.signup_container{
+    font-family: 'montserrat';
+    color: rgb(27, 27, 27);
+   /*  background: wheat; */
+    padding: 16px;
+}
+
+.form_container{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.form_container label{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.form_container input{
+    margin: 10px 0 10px 0;
+}
+
+.form_container input[type=text], input[type=password] {
+    width: 90%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  .form_container input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+
+
+
+  .form_container button {
+      align-self: flex-end;
+      background: #2975CD;
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      
+     
+  }
+
+
+.reg-card{
+    background: white;
+    width: 100%;
+    height: 20vh;
+    border-radius: 10px;
+    box-shadow: 0 20px 30px 0 rgba(1, 1, 1, 0.096);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-content{
+    font-size: 18px;
+    font-family: 'Montserrat';
+}
+
+.card-content-active{
+    height: inherit;
+    width: inherit;
+    display: block;
+    color: #707070;
+    overflow-y: scroll;
+    
+}
+
+.historial{
+    padding: 5px;
+    cursor: pointer;
+}
+
+.historial th{
+    background: #E8E8E8;
+    color: black;
+    font-weight: bold;
+    font-family: 'Montserrat';
+   
+}
+
+tbody tr:nth-child(odd) {
+    background: #F7F7F7;
+  }
+
+tbody tr:hover{
+    background: #EBEBEB;
+}

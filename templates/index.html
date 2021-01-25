@@ -1,0 +1,120 @@
+{%extends './base.html'%}
+
+{%block content%}
+
+<section>
+    <div class="search-wrap">
+        <div class="search_btn_container">
+            <form autocomplete="on" method="POST">
+                <label for="ciudad">.</label>
+                <input type="text" name="ciudad" id="ciudad" autocomplete="on" placeholder="Buscar">
+                <button type="submit"><i class="fa fa-search" aria-label="buscar"></i></button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="content-wrap" style=" display: flex;flex-direction: column;align-items: center;">
+
+        <div>
+            <div class="weather-card"
+                style="color: black ;margin-bottom: 5vh;background: white;width: 15vw;height: 30vh;border-radius: 10px;box-shadow: 0 20px 30px 0 rgba(1, 1, 1, 0.096);">
+                {% if data %}
+                <div class="ciudad">
+                    <span>{{data['ciudad'] }},</span>
+                    <span>{{data['pais']}}</span>
+
+
+                </div>
+                <div class="clima">
+                    <div class="img">
+
+                        {%if data['estado'] == 'Clouds'%}
+                        <i class="fa fa-cloud" aria-hidden="true"></i>
+
+                        {% elif data['estado'] == 'Rain'%}
+                        <i class="fa fa-tint" aria-hidden="true"></i>
+                        {%else %}
+                        <i class="fa fa-sun-o" aria-hidden="true"></i>
+                        {%endif%}
+                    </div>
+                    <div class="degrees-wrapper">
+                        <span class="grados"> {{data['clima']}} &#176;</span>
+                        <span>{{data['estado']}}</span>
+
+                    </div>
+
+                </div>
+                <div class="adicional">
+                    <div class="sensacion">
+                        <span>Sensación térmica</span>
+                        <span>{{data['sensacion']}} &#176;</span>
+                    </div>
+                    <div class="humedad">
+                        <span>Humedad</span>
+                        <span>{{data['humedad']}}%</span>
+                    </div>
+
+                </div>
+                {% endif %}
+
+            </div>
+
+            <div class="reg-card">
+
+                {% if not current_user.is_authenticated%}
+                <div class="card-content">
+                    <span style="color: black;">Inicia sesión para acceder a tu historial de ubicaciones</span>
+                </div>
+                {%else%}
+                <div class="card-content-active">
+                    <table class="historial">
+                        <thead>
+                            <tr>
+                                <th>Consultado</th>
+                                <th>Lugar</th>
+                                <th>Clima</th>
+                                <th>Temperatura</th>
+                                <th>Sensación</th>
+                                <th>Humedad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for consulta in historial%}
+                            <tr>
+                                <td>{{consulta.fecha}}</td>
+                                <td>{{consulta.ciudad}}</td>
+                                <td>
+                                    
+                                    {%if consulta.clima == 'Clouds'%}
+                                    <i style="font-size: 16px;margin-right: 5px;" class="fa fa-cloud" aria-hidden="true"></i>{{consulta.clima}}
+                                    
+                                    {% elif consulta.clima == 'Rain'%}
+                                    <i style="font-size: 16px;margin-right: 5px;" class="fa fa-tint" aria-hidden="true"></i>{{consulta.clima}}
+
+                                    {%else %}
+                                    <i style="font-size: 16px;margin-right: 5px;" class="fa fa-sun-o" aria-hidden="true"></i>{{consulta.clima}}
+
+                                    {%endif%}
+                                    
+                                </td>
+
+
+                                <td>{{consulta.temperatura}}&#176;</td>
+                                <td>{{consulta.sensacion}}&#176;</td>
+                                <td>{{consulta.humedad}}%</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                {%endif%}
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

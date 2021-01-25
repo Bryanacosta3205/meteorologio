@@ -1,0 +1,41 @@
+{%extends './base.html'%}
+
+{% block content%}
+
+
+<form action="" method="POST">
+    <section class="signup_container">
+
+        <h1 style="font-family: 'Roboto Slab';font-size: 35px;">Ingresar!</h1>
+        <p>Llena el formulario para acceder a tu cuenta.</p>
+        <hr>
+
+        <div class="form_container">
+            <label for="email"><b>Correo</b></label>
+            <input type="text" placeholder="Ingresar correo" id="email" name="email" required>
+
+            <label for="psw"><b>Contraseña</b></label>
+            <input type="password" placeholder="Ingresar contraseña" id="psw" name="psw" required>
+
+            <button type="submit" aria-label="iniciar sesion">Iniciar sesión</button>
+
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class=flashes style="display: flex; justify-content: center;">
+            {% for message in messages %}
+            <small
+                style="border-radius: 5px;padding: 10px;background: #ef4f4f;color: white;font-weight: 800;">{{
+                message }}</small>
+            {% endfor %}
+                </div>
+        {% endif %}
+        {% endwith %}
+
+
+    </section>
+</form>
+
+
+{% endblock %}

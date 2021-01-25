@@ -1,0 +1,51 @@
+{%extends './base.html'%}
+
+{% block content%}
+
+
+<form action="" method="POST">
+    <section class="signup_container">
+
+        <h1 style="font-family: 'Roboto Slab';font-size: 35px;">Regístrate!</h1>
+        <p>Llena el formulario para crear una cuenta.</p>
+        <hr>
+
+        <div class="form_container">
+            <label for="user"><b>Usuario</b></label>
+            <input type="text" placeholder="Ingresar usuario" name="user" id="user" required maxlength="50">
+
+            <label for="email"><b>Correo</b></label>
+            <input type="text" placeholder="Ingresar correo" name="email" id="email" required maxlength="50">
+
+            <label for="psw"><b>Contraseña</b></label>
+            <input type="password" placeholder="Ingresar contraseña" name="psw" id="psw" required maxlength="50">
+
+            <label for="psw-repeat"><b>Confirmar contraseña</b></label>
+            <input type="password" placeholder="Confirmar contraseña" id="psw-repeat" name="psw-repeat" required
+                maxlength="50">
+
+
+
+            <button type="submit" aria-label="registrarse">Registrarse</button>
+
+        </div>
+
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class=flashes style="display: flex; justify-content: center;">
+                {% for message in messages %}
+                <small
+                    style="margin-top: 10px;border-radius: 5px;padding: 10px;background: #ef4f4f;;color: white;font-weight: 800;">{{
+                    message }}</small>
+                {% endfor %}
+                    </div>
+            {% endif %}
+            {% endwith %}
+    
+
+    </section>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Consulta del clima">
+    <title>Meteorologio</title>
+    <link rel="icon" type="image/png" href="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/32/weather-icon.png"/>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://use.fontawesome.com/981bebb1da.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Slab:wght@600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body style="background-color: #F7F7F7;color: white;margin: 0;">
+    <header class="main-wrap"
+        style="font-family: 'Montserrat';background: #2975CD; width: 100%; height: 100px;display: flex;align-items: center;justify-content: space-between;">
+        <div style="padding-left: 30px;height: 100%;display: flex;flex-direction: column;justify-content: center;">
+            <a href="/" style="text-decoration: none;font-weight: bold;;font-size: 30px;color: white;">
+                <i style="font-size: 30px;" class="fa fa-cloud" aria-hidden="true"></i>
+                Meteorologio</a>
+            <span>Tu clima en todo lugar</span>
+        </div>
+
+        {% if not current_user.is_authenticated%}
+        <div style="padding-right: 10px;width: 20%; display: flex; justify-content: center;">
+            <ul style="width: 100%;list-style: none; display: flex;justify-content:center;">
+                <li style="margin-right: 20px;">
+                    <a href="/login" style="text-decoration: none;color: white;">Inicia sesión</a>
+                </li>
+                <li>
+                    <a href="/signup" style="text-decoration: none;color: white;">Regístrate</a>
+                </li>
+            </ul>
+        </div>
+        {%else%}
+        <div style="padding-right: 10px;width: 20%; display: flex; justify-content: center;">
+            <ul style="width: 100%;list-style: none; display: flex;justify-content:center;">
+                <li style="margin-right: 20px;">
+                    <span style="text-decoration: none;color: white;">{{current_user.username}}</span>
+                </li>
+                <li>
+                    <a href="/logout" style="text-decoration: none;color: white;">Cerrar sesión</a>
+                </li>
+            </ul>
+        </div>
+        {%endif%}
+
+
+    </header>
+
+
+{% block content %}
+{% endblock %}
+
+<!-- {% block signup %}
+{% endblock %}
+
+{% block login %}
+{% endblock %} -->
+
+</body>
+
+</html>
