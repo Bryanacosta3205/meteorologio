@@ -36,6 +36,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # API_KEY
+
 api_token = os.environ.get('WEATHER_API_KEY')
 api_url_base = 'https://api.openweathermap.org/data/2.5/weather?q='
 headers = {'Content-Type': 'application/json',
@@ -150,6 +151,7 @@ def signup():
         return redirect("/")
 
     if request.method == "POST":
+        print(request.form)
         pwd = request.form["psw"] 
         vpwd = request.form["psw-repeat"] 
         if pwd != vpwd:

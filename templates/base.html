@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Consulta del clima">
     <title>Meteorologio</title>
-    <link rel="icon" type="image/png" href="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/32/weather-icon.png"/>
+    <link rel="icon" type="image/png"
+        href="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/32/weather-icon.png" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
@@ -19,8 +21,7 @@
 </head>
 
 <body style="background-color: #F7F7F7;color: white;margin: 0;">
-    <header class="main-wrap"
-        style="font-family: 'Montserrat';background: #2975CD; width: 100%; height: 100px;display: flex;align-items: center;justify-content: space-between;">
+    <header class="main-wrap">
         <div style="padding-left: 30px;height: 100%;display: flex;flex-direction: column;justify-content: center;">
             <a href="/" style="text-decoration: none;font-weight: bold;;font-size: 30px;color: white;">
                 <i style="font-size: 30px;" class="fa fa-cloud" aria-hidden="true"></i>
@@ -29,10 +30,10 @@
         </div>
 
         {% if not current_user.is_authenticated%}
-        <div style="padding-right: 10px;width: 20%; display: flex; justify-content: center;">
-            <ul style="width: 100%;list-style: none; display: flex;justify-content:center;">
-                <li style="margin-right: 20px;">
-                    <a href="/login" style="text-decoration: none;color: white;">Inicia sesión</a>
+        <div class="header-options">
+            <ul>
+                <li>
+                    <a href="/login" style="text-decoration: none;color: white;">Iniciar sesión</a>
                 </li>
                 <li>
                     <a href="/signup" style="text-decoration: none;color: white;">Regístrate</a>
@@ -40,9 +41,9 @@
             </ul>
         </div>
         {%else%}
-        <div style="padding-right: 10px;width: 20%; display: flex; justify-content: center;">
-            <ul style="width: 100%;list-style: none; display: flex;justify-content:center;">
-                <li style="margin-right: 20px;">
+        <div class="header-options">
+            <ul>
+                <li>
                     <span style="text-decoration: none;color: white;">{{current_user.username}}</span>
                 </li>
                 <li>
@@ -56,14 +57,11 @@
     </header>
 
 
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 
-<!-- {% block signup %}
-{% endblock %}
 
-{% block login %}
-{% endblock %} -->
+
 
 </body>
 
