@@ -52,6 +52,7 @@
 
 .historial{
   border-collapse: collapse;
+  position: absolute;
 }
   .historial thead{
     display: none;
