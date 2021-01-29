@@ -2,7 +2,7 @@
 
 {%block content%}
 
-<section>
+<section class="notranslate">
     <div class="search-wrap">
         <div class="search_btn_container">
             <form autocomplete="on" method="POST">
@@ -20,8 +20,8 @@
             <div class="weather-card">
                 {% if data %}
                 <div class="ciudad">
-                    <span>{{data['ciudad'] }},</span>
-                    <span>{{data['pais']}}</span>
+                    <span translate="no">{{data['ciudad'] }},</span>
+                    <span translate="no">{{data['pais']}}</span>
                 </div>
 
                 <div class="clima">
@@ -55,9 +55,10 @@
                 {% endif %}
 
             </div>
-
-            <div class="reg-card">
-
+           <legend style="color: black;font-family: 'Montserrat';font-weight: bolder;">Historial</legend>
+           <br> 
+           <div class="reg-card">
+                
                 {% if not current_user.is_authenticated%}
                 <div class="card-content">
                     <span style="color: black;">Inicia sesión para acceder a tu historial de ubicaciones</span>
@@ -78,9 +79,9 @@
                         <tbody>
                             {%for consulta in historial%}
                             <tr>
-                                <td>{{consulta.fecha}}</td>
-                                <td>{{consulta.ciudad}}</td>
-                                <td>
+                                <td data-label="Consultado" >{{consulta.fecha}}</td>
+                                <td data-label="Lugar" >{{consulta.ciudad}}</td>
+                                <td data-label="Clima" >
 
                                     {%if consulta.clima == 'Clouds'%}
                                     <i style="font-size: 16px;margin-right: 5px;" class="fa fa-cloud"
@@ -99,9 +100,9 @@
                                 </td>
 
 
-                                <td>{{consulta.temperatura}}&#176;</td>
-                                <td>{{consulta.sensacion}}&#176;</td>
-                                <td>{{consulta.humedad}}%</td>
+                                <td data-label="Temperatura" >{{consulta.temperatura}}&#176;</td>
+                                <td data-label="Sensación" >{{consulta.sensacion}}&#176;</td>
+                                <td data-label="Humedad" >{{consulta.humedad}}%</td>
                             </tr>
                             {%endfor%}
                         </tbody>
