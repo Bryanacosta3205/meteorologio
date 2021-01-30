@@ -52,13 +52,7 @@
 @media (max-width: 33.75em) {
 
 
-.historial{
-  border-collapse: collapse;
-  
-  height: 500px;
- 
-  
-}
+
   .historial thead{
     display: none;
   }
@@ -360,7 +354,7 @@ input[type="password"]:focus {
 }
 
 .historial {
-  height: 900px;
+  
   border-collapse: collapse;
   border-radius: 5px;
   width: 100%;
@@ -385,6 +379,7 @@ input[type="password"]:focus {
 
 .historial td {
   padding: 15px;
+  
 }
 
 tbody tr {

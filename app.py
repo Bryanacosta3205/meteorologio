@@ -171,7 +171,7 @@ def signup():
                 msg.html = render_template('email.html',user=name,passwd=request.form["psw"])
                 mail.send(msg)
                 
-                flash("Hemos enviado un correo de verificación a {}".format(correo),"success")
+                flash("Hemos enviado una copia de tus datos de a {}".format(correo),"success")
 
             except IntegrityError as error:
                 db.session.rollback()
