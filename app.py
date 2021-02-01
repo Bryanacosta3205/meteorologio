@@ -11,7 +11,6 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 import os
 from flask_mail import Mail,Message
 
-
 app = Flask(__name__)
 app.debug = True
 bcrypt=Bcrypt()
@@ -29,14 +28,12 @@ app.config['MAIL_PASSWORD'] = os.environ.get('SENDGRID_API_KEY')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
 mail = Mail(app)
 
-
-#app.config['SQLALCHEMY_DATABASE_URI']='postgresql+psycopg2://sa:12345678@localhost:5432/meteorologio'
-app.config['SQLALCHEMY_DATABASE_URI']='postgres://qxacugfabwkwrx:b8eda11a40abab9e8f7fb76f2a560069dc8ba6864562bc961657dc5cef482fee@ec2-54-225-18-166.compute-1.amazonaws.com:5432/dbjcdbuo0fnkth'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql+psycopg2://sa:12345678@localhost:5432/meteorologio'
+#app.config['SQLALCHEMY_DATABASE_URI']='postgres://qxacugfabwkwrx:b8eda11a40abab9e8f7fb76f2a560069dc8ba6864562bc961657dc5cef482fee@ec2-54-225-18-166.compute-1.amazonaws.com:5432/dbjcdbuo0fnkth'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # API_KEY
-
 api_token = os.environ.get('WEATHER_API_KEY')
 api_url_base = 'https://api.openweathermap.org/data/2.5/weather?q='
 headers = {'Content-Type': 'application/json',
@@ -45,7 +42,7 @@ headers = {'Content-Type': 'application/json',
 
 class Usuario(db.Model):
     __tablename__ = 'usuario'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, index=True)
     username = db.Column(db.String(50), unique=True)
     passwd = db.Column(db.String(250))
     email = db.Column(db.String(250), unique=True, index=True)
@@ -71,14 +68,14 @@ class Usuario(db.Model):
     
 class Consulta(db.Model):
     __tablename__ = 'consulta'
-    idConsulta = db.Column(db.Integer, primary_key=True)
+    idConsulta = db.Column(db.Integer, primary_key=True, index=True)
     idUsuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
     ciudad = db.Column(db.String(50))
     clima = db.Column(db.String(50))
     temperatura = db.Column(db.Integer)
     sensacion = db.Column(db.Integer)
     humedad = db.Column(db.Integer)
-    status = db.Column(db.Boolean, default=True)
+    favorite = db.Column(db.Boolean, default=False) #Nuevo 1 status Default True 
     fecha = db.Column(db.DateTime)
 
     def __init__(self,idUsuario,ciudad,clima,temperatura,sensacion,humedad,fecha):
@@ -94,12 +91,25 @@ class Consulta(db.Model):
 def load_user(user_id):
 	return Usuario.query.filter_by(id=user_id).first()
 
+
+def formatFavorite(favorites):
+    favs=[]
+    for i,favorite in enumerate(favorites,start=1):
+        str_fav = str(favorite)[2:(len(favorite)-4)]
+        favs.append(justGetWeather(str_fav))
+        if i == len(favorites):
+            return favs
+
 @app.route('/',methods=['POST','GET'])
 def inicio():
-    records=""
+    records = ""
+    fav_array=[]
     if current_user.is_authenticated:
         records = getRecord()
+        favorites = getFavorites()
 
+        fav_array=(formatFavorite(favorites))
+        
     if request.method == "POST":
         ciudad = request.form['ciudad']
         clima=""
@@ -108,13 +118,43 @@ def inicio():
             clima = getWeather(ciudad)
             if current_user.is_authenticated:
                 records = getRecord()
+
         if(type(clima) != dict):
             clima=""
             #flash("Ciudad no encontrada")
         
-        return render_template("index.html", data=clima, historial=records)
+        return render_template("index.html", data=clima, historial=records, favorites=fav_array)
 
-    return render_template("index.html",historial=records)
+    return render_template("index.html",historial=records,favorites=fav_array)
+
+
+def justGetWeather(ciudad):
+    api_url ='{}&appid='.format(api_url_base+ciudad)+api_token
+    response = requests.get(api_url,headers=headers).json()
+
+    if(response.get('cod') == '404'):
+        return response.get('message')
+    
+    clima = round(response.get('main').get('temp') - 273.15)
+    sensacion = round(response.get('main').get('feels_like') - 273.15 )
+    humedad = response.get('main').get('humidity')
+    estado = response.get('weather')[0].get('main')
+    ciudad = response.get('name')
+    pais = response.get('sys').get('country')
+    data = {
+        "clima":clima,
+        "sensacion":sensacion,
+        "humedad":humedad,
+        "estado":estado,
+        "ciudad":ciudad,
+        "pais":pais
+    }
+    
+    return data
+
+
+
+
 
 def getWeather(ciudad):
     api_url ='{}&appid='.format(api_url_base+ciudad)+api_token
@@ -203,6 +243,13 @@ def login():
 
     return render_template("login.html")
 
+@app.route("/about")
+def about():
+    if current_user.is_authenticated:
+        return redirect("/")
+
+    return render_template("about.html") 
+
 @app.route("/logout")
 @login_required
 def logout():
@@ -210,8 +257,65 @@ def logout():
     return redirect("/")
 
 def getRecord():
-    record= Consulta.query.filter_by(idUsuario=current_user.id).order_by(Consulta.idConsulta.desc()).all()
+    record = Consulta.query.filter_by(idUsuario=current_user.id).order_by(Consulta.idConsulta.desc()).all()
     return record
+
+def getFavorites():
+    favorites = Consulta.query.with_entities(Consulta.ciudad.distinct()).filter_by(idUsuario=current_user.id,favorite=True ).all()
+    return favorites
+
+
+@app.route("/markCityAs",methods=['GET','POST'])
+@login_required
+def markCityAs():
+    if request.method == "POST":
+        ciudad = request.form['valC']
+        isFavorite = Consulta.query.filter_by(idUsuario=current_user.id,ciudad=ciudad,favorite=True).all()
+        
+        for fav in isFavorite:
+            fav.favorite = False
+            db.session.commit()
+        return redirect(url_for("inicio"))
+    
+    return redirect("/")
+
+
+@app.route("/markAs",methods=['GET','POST'])
+@login_required
+def markAs():
+    if request.method == "POST":
+        idConsulta = request.form['val']
+        isFavorite = str(Consulta.query.with_entities(Consulta.favorite).filter_by(idConsulta=idConsulta).first())
+        isFavorite = isFavorite[1:len(isFavorite)-2]
+        consulta = Consulta.query.get(idConsulta)
+
+        if isFavorite == "False":
+            consulta.favorite = True
+            db.session.commit()
+        else:
+            consulta.favorite = False
+            db.session.commit()
+
+        return redirect(url_for("inicio"))
+    
+@app.route("/deleteHistory")
+@login_required
+def deleteHistory():
+    Consulta.query.filter_by(idUsuario=current_user.id).delete()
+    db.session.commit()
+    return redirect(url_for("inicio"))
+
+  
+
+
+
+@app.errorhandler(404)
+def error(e):
+    return "Página no encontrada"
+
+@app.errorhandler(403)
+def error(e):
+    return "Prohibido"
 
 if __name__ == '__main__':
     db.create_all()

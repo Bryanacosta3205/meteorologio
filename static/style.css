@@ -51,8 +51,6 @@
 
 @media (max-width: 33.75em) {
 
-
-
   .historial thead{
     display: none;
   }
@@ -100,13 +98,9 @@
     height: 8.125rem;
     width: 100%;
     display: flex;
+   
   }
-  .search_btn_container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+
 
   .weather-card-container {
     display: flex;
@@ -119,6 +113,8 @@
   .card-content-active{
     height: 100vh;
   }
+
+  
 
 }
 
@@ -230,12 +226,18 @@
 }
 
 .search_btn_container {
-  max-width: 56.25rem;
+  max-width: 742px;
   display: flex;
   justify-content: center;
   padding: 50px 0;
-  width: 100%;
+  width: 90%;
   align-items: center;
+  flex-direction: column;
+}
+
+.search_btn_container span{
+  justify-self: flex-end;
+  align-self: flex-end;
 }
 
 .search_btn_container input {
@@ -243,10 +245,10 @@
   border-radius: 5px;
   border: none;
   height: 40px;
-  width: 80%;
+  width: 100%;
   outline: none;
   padding-left: 20px;
-  margin-bottom: 5vh;
+  margin-bottom: 10px;
   font-size: 18px;
 }
 
@@ -395,3 +397,123 @@ tbody tr:nth-child(odd) {
 tbody tr:hover {
   background: #ebebeb;
 }
+
+
+
+.site-description{
+ 
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 10px;
+  display: flex;
+}
+
+.left{
+
+  width: 50%;
+  font-size: 30px;
+  font-weight: 900;
+  font-family: "Montserrat";
+  color: #333333 ;
+}
+
+.left p{
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.left a{
+  color: #1378c5;
+  font-weight: 800;
+}
+
+.right{
+
+  width: 50%;
+}
+
+
+.fav-wrapper{
+  max-width: 750px;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'Montserrat';
+  
+
+}
+
+.fav-container{
+  display: flex;
+  color: black;
+  margin: 5vh 10px 5vh 0;
+  width: 20vh;
+  height: 10vh;
+  min-width: 170px;
+  min-height: 80px;
+  border-radius: 10px;
+  box-shadow: 0 20px 30px 0 rgba(1, 1, 1, 0.096);
+
+  
+
+}
+
+.fav-column{
+  flex-wrap: wrap;
+  display: flex;
+  flex: 50%;
+  padding: 5%;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.fav-column i{
+  font-size: 2em;
+}
+
+.fav-column span{
+  justify-self: center;
+  align-self: flex-end;
+}
+
+.fa-star-o:hover{
+  color: gold;
+}
+
+.fa-star{
+  color: gold;
+}
+
+.fa-star:hover{
+  color: black;
+}
+
+.fav-column>span{
+ width: 100%;
+}
+
+.rightRow button{
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.rightRow form{
+  display: flex;
+  width: 1.5rem;
+  height: 1.25rem;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.rightRow{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  
+}
+

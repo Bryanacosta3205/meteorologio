@@ -5,14 +5,19 @@
 <section class="notranslate">
     <div class="search-wrap">
         <div class="search_btn_container">
+            
+            
             <form autocomplete="on" method="POST">
                 <label for="ciudad">.</label>
                 <input type="text" name="ciudad" id="ciudad" autocomplete="on" placeholder="Buscar">
                 <button type="submit"><i class="fa fa-search" aria-label="buscar"></i></button>
+                
             </form>
+            <span><a href="/deleteHistory">Eliminar historial</a>  </span>
         </div>
+        
     </div>
-
+   
 
     <div class="content-wrap" style=" display: flex;flex-direction: column;align-items: center;">
 
@@ -55,15 +60,58 @@
                 {% endif %}
 
             </div>
-           <legend style="color: black;font-family: 'Montserrat';font-weight: bolder;">Historial</legend>
-           <br> 
-           <div class="reg-card" style="height: 30vh;margin-bottom: 20%;">
-                
+
+            {% if favorites %}
+            <legend style="color: black;font-family: 'Montserrat';font-weight: bolder;">Favoritos</legend>
+
+            <div class="fav-wrapper">
+                {%for favorite in favorites%}
+                <div class="fav-container">
+
+                    <div class="fav-column">
+
+                        {%if favorite['estado'] == 'Clouds'%}
+                        <i class="fa fa-cloud" aria-hidden="true"></i>
+                        {% elif favorite['estado'] == 'Rain'%}
+                        <i class="fa fa-tint" aria-hidden="true"></i>
+                        {%else %}
+                        <i class="fa fa-sun-o" aria-hidden="true"></i>
+                        {%endif%}
+                    </div>
+
+                    <div class="fav-column right">
+                        <span>
+                            {{favorite.ciudad}}
+                        </span>
+                        <div class="rightRow">
+                            <span>{{favorite.clima}}&#176;</span>
+                            <form action="/markCityAs" method="POST">
+                                <button type="submit" value="{{favorite.ciudad}}" id="valC" name="valC">
+                                    <i title="Quitar de favoritos" style="font-size: 14px;color: rgb(88, 88, 88);"
+                                        class="fa fa-times" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+                {%endfor%}
+            </div>
+            {% endif %}
+
+            <legend style="color: black;font-family: 'Montserrat';font-weight: bolder;">Historial</legend>
+            <br>
+            <div class="reg-card" style="height: 30vh;margin-bottom: 20%;">
+
                 {% if not current_user.is_authenticated%}
                 <div class="card-content">
                     <span style="color: black;">Inicia sesión para acceder a tu historial de ubicaciones</span>
                 </div>
                 {%else%}
+                
                 <div class="card-content-active">
                     <table class="historial">
                         <thead>
@@ -74,14 +122,15 @@
                                 <th>Temperatura</th>
                                 <th>Sensación</th>
                                 <th>Humedad</th>
+                                <th>Favorito</th>
                             </tr>
                         </thead>
                         <tbody>
                             {%for consulta in historial%}
                             <tr>
-                                <td data-label="Consultado" >{{consulta.fecha}}</td>
-                                <td data-label="Lugar" >{{consulta.ciudad}}</td>
-                                <td data-label="Clima" >
+                                <td data-label="Consultado">{{consulta.fecha}}</td>
+                                <td data-label="Lugar">{{consulta.ciudad}}</td>
+                                <td data-label="Clima">
 
                                     {%if consulta.clima == 'Clouds'%}
                                     <i style="font-size: 16px;margin-right: 5px;" class="fa fa-cloud"
@@ -100,14 +149,32 @@
                                 </td>
 
 
-                                <td data-label="Temperatura" >{{consulta.temperatura}}&#176;</td>
-                                <td data-label="Sensación" >{{consulta.sensacion}}&#176;</td>
-                                <td data-label="Humedad" >{{consulta.humedad}}%</td>
+                                <td data-label="Temperatura">{{consulta.temperatura}}&#176;</td>
+                                <td data-label="Sensación">{{consulta.sensacion}}&#176;</td>
+                                <td data-label="Humedad">{{consulta.humedad}}%</td>
+                                <td data-label="Favorito">
+                                    {%if consulta['favorite'] == False%}
+                                    <form action="/markAs" method="POST">
+                                        <button type="submit" value="{{consulta.idConsulta}}" id="val" name="val"><i
+                                                class="fa fa-star-o" aria-hidden="true"
+                                                title="Marcar como favorito"></i></button>
+                                    </form>
+                                    {%else%}
+                                    <form action="/markAs" method="POST">
+                                        <button type="submit" value="{{consulta.idConsulta}}" id="val" name="val"><i
+                                                class="fa fa-star" aria-hidden="true"
+                                                title="Quitar de favoritos"></i></button>
+                                    </form>
+                                    {%endif%}
+                                </td>
                             </tr>
+
                             {%endfor%}
                         </tbody>
                     </table>
+
                 </div>
+
                 {%endif%}
 
             </div>

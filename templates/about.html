@@ -1,0 +1,16 @@
+{%extends './base.html'%}
+
+{% block content%}
+<section class="about-section">
+    <div class="site-description">
+        <div class="left">
+            <h1>No dejes que el clima te sorprenda.</h1>
+            <p>Meteorologio te permite consultar el clima en todo lugar y llevar un registro de tus consultas.</p>
+            <a href="/">Volver al clima</a>
+        </div>
+        <div class="right">
+            <img src="{{ url_for('static', filename='aboutimg.svg') }}" alt="main-img" >
+        </div>
+    </div>
+</section>
+{%endblock%}
