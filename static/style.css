@@ -238,6 +238,17 @@
 .search_btn_container span{
   justify-self: flex-end;
   align-self: flex-end;
+  
+}
+
+.search_btn_container span a{
+  font-family: 'Montserrat';
+  font-size: 14px;
+  text-decoration: none;
+  color: #333333;
+  
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .search_btn_container input {

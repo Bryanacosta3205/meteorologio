@@ -14,7 +14,10 @@
                 
             </form>
             {% if current_user.is_authenticated%}
-            <span><a href="/deleteHistory">Eliminar historial</a>  </span>
+            <span>
+                <i style="color: #333333;" class="fa fa-trash-o" aria-hidden="true"><a href="/deleteHistory">Eliminar historial</a>  </i>
+                
+            </span>
             {% endif%}
         </div>
         
