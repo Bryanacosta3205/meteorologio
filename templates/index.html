@@ -13,7 +13,9 @@
                 <button type="submit"><i class="fa fa-search" aria-label="buscar"></i></button>
                 
             </form>
+            {% if current_user.is_authenticated%}
             <span><a href="/deleteHistory">Eliminar historial</a>  </span>
+            {% endif%}
         </div>
         
     </div>
