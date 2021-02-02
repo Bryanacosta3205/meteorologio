@@ -49,8 +49,10 @@
   display: none;
 }
 
-@media (max-width: 33.75em) {
-
+@media  (max-width: 42.375em) {
+  .main-wrap{
+    padding-right: 0;
+  }
   .historial thead{
     display: none;
   }
@@ -83,7 +85,9 @@
   }
 
   .header-options{
-    width: 80%;
+    display: flex;
+    width: 90%;
+    justify-content: flex-end;
     
   }
 
@@ -114,9 +118,10 @@
     height: 100vh;
   }
 
+
   
 
-}
+}/* END MEDIAQUERY */
 
 .alert {
   margin-top: 20px;
@@ -409,41 +414,7 @@ tbody tr:hover {
   background: #ebebeb;
 }
 
-
-
-.site-description{
- 
-  width: 50%;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 10px;
-  display: flex;
-}
-
-.left{
-
-  width: 50%;
-  font-size: 30px;
-  font-weight: 900;
-  font-family: "Montserrat";
-  color: #333333 ;
-}
-
-.left p{
-  font-size: 20px;
-  font-weight: 100;
-}
-
-.left a{
-  color: #1378c5;
-  font-weight: 800;
-}
-
-.right{
-
-  width: 50%;
-}
-
+/* Favorites */
 
 .fav-wrapper{
   max-width: 750px;
@@ -525,6 +496,52 @@ tbody tr:hover {
   justify-content: space-between;
   align-items: center;
   
-  
+}
+
+/* About */
+
+.about-container{
+  font-family: 'Montserrat';
+  color: #333333;
+  margin: 0 auto;
+  padding: 2em 1em;
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+.about-description{
+  text-align: center;
+}
+
+.about-description h1{
+  font-size: 2.5em;
+  font-weight: 800;
+}
+
+.about-description p{
+  font-size: 1.2em;
+  font-weight: 500;
+  max-width: 500px;
+  margin: 3em auto;
+  line-height: 1.8em;
+}
+
+.about-description a{
+  background-color: #1378c5;
+  padding: 0.5em 1em;
+  border-radius: 50px;
+  color: white;
+  text-decoration: none;
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+figure{
+  text-align: center;
+}
+
+figure img{
+  margin: 3em auto 0;
+  width: 300px;
 }
 
